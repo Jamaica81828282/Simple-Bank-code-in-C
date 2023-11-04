@@ -1,0 +1,97 @@
+#include <stdio.h>
+
+void menu() {
+    printf("\n\t\t\tMINI MENU");
+    printf("\n\n1. Display Information\n");
+    printf("2. Deposit\n");
+    printf("3. Withdraw\n");
+    printf("4. Exit\n");
+}
+
+void displayInformation(int accNo, char* name, int bal) {
+    printf("\nDISPLAYING INFORMATION...");
+    printf("\nName: %s\n", name);
+    printf("Account No: %d\n", accNo);
+    printf("Remaining Balance: %d\n", bal);
+}
+
+void depositMoney(int *bal) {
+    int amount;
+    printf("\nYOU ARE ABOUT TO DEPOSIT AN AMOUNT...\n");
+    printf("\t\t\tLoading...\n");
+    printf("Please enter the amount you want to deposit: ");
+    scanf("%d", &amount);
+
+    if (amount > 0) {
+        *bal += amount;
+        printf("You have deposited %d into your account.\n", amount);
+        printf("The total balance of your account is %d.\n", *bal);
+    } else {
+        printf("Invalid deposit amount. Please enter a positive value.\n");
+    }
+}
+
+void withdrawMoney(int *bal) {
+    int withdMoney;
+    printf("You are about to withdraw.\n");
+    printf("Enter the amount you want to withdraw: ");
+    scanf("%d", &withdMoney);
+
+    if (withdMoney > 0 && *bal >= withdMoney) {
+        *bal -= withdMoney;
+        printf("You have withdrawn %d from your balance.\n", withdMoney);
+        printf("Your remaining balance is %d.\n", *bal);
+    } else {
+        printf("You have insufficient funds or entered an invalid amount.\n");
+    }
+}
+
+void exitBank() {
+    printf("You have exited the Bank of JMJ!\n");
+    printf("Hope you come back again!\n");
+}
+
+int main() {
+    char name[50];
+    int accNo;
+    int numbers;
+    int balance;
+
+    printf("Welcome to The Bank of JMJ!\n");
+    printf("To log in, please enter the following:\n");
+
+    printf("Enter the name of your bank account: ");
+    scanf("%s", name);
+    printf("Enter your account number (8-12): ");
+    scanf("%d", &accNo);
+    printf("Enter the amount of balance in your account: ");
+    scanf("%d", &balance);
+
+    do {
+        menu();
+        printf("Enter the number of your choice: ");
+        scanf("%d", &numbers);
+
+        switch (numbers) {
+            case 1:
+                displayInformation(accNo, name, balance);
+                break;
+            case 2:
+                depositMoney(&balance);
+                break;
+            case 3:
+                withdrawMoney(&balance);
+                break;
+            case 4:
+                exitBank();
+                return 0; // Exit the program when the user selects option 4
+            default:
+                printf("\n****Invalid Number!****\nPlease choose another number available on the menu.\n");
+                break;
+        }
+
+    } while (1);
+
+    return 0;
+}
+
